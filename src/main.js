@@ -12,7 +12,7 @@ import overview from "./components/overview";
 import buySell from "./components/buySell";
 import tulips from "./components/tulips";
 
-let api = "https://me-api.oljo.me";
+let api = "https://trading-api.oljo.me";
 if (process.env.NODE_ENV === "development") {
     api = "http://localhost:3000";
 }
