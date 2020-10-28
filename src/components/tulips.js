@@ -21,7 +21,7 @@ const tulips = Vue.component("tulips", {
                 <h2>{{ chart.datasets[0].label }}</h2>
 
                 <div class="picAndBuySell">
-                    <img alt="Tulip picture" class="tulipPic" v-bind:src="'http://localhost:3000/img/' + chart.image" />
+                    <img alt="Tulip picture" class="tulipPic" v-bind:src="imgURL + chart.image" />
                     <buy-sell
                         :itemId="chart.id"
                         :currentPrice="chart.datasets[0].data[chart.datasets[0].data.length -1].y"
@@ -46,6 +46,12 @@ const tulips = Vue.component("tulips", {
         },
         graphOptions () {
             return chartStore.state.graphOptions
+        },
+        imgURL () {
+            if (process.env.NODE_ENV === "development") {
+                return "http://localhost:3000/img/";
+            }
+            return "https://trading-api.oljo.me/img/";
         }
       },
       created () {
@@ -53,7 +59,7 @@ const tulips = Vue.component("tulips", {
       },
       beforeCreate() {
           if (!this.$root.pricesLoaded) {
-              let url = "https://bulb-prices.oljo.me";
+              let url = "https://trading-socket.oljo.me/prices";
               if (process.env.NODE_ENV === "development") {
                   url = "http://localhost:4000/prices";
               }
